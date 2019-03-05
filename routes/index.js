@@ -3,7 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  console.log('AM I HERE ?');
+  res.sendFile((('C:/Users/ndongari/Documents/workspace/blog-app/public/light-bootstrap-dashboard-master/dashboard.html')));
 });
 
 module.exports = router;

@@ -9,7 +9,7 @@ module.exports =  (req, res, next) => {
         if(err){
             console.log('Token invalid : verify function failed');
             res.status('500').json({
-                msg : 'Please LogIN to get access'
+                isLogedIn : false
             })
         }else{
         

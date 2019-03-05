@@ -16,6 +16,7 @@ mongoose.connect('mongodb://localhost:27017/blogPost', {useNewUrlParser : true})
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var logInRouter = require('./routes/logIn');
 
 var app = express();
 
@@ -29,7 +30,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use('/', indexRouter);
+app.use('/logIn', logInRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler

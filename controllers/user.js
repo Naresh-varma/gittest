@@ -5,6 +5,33 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jswt = require('jsonwebtoken');
 
+exports.editBlog = (req, res, next) => {
+  console.log('here');
+  Blog.findOneAndUpdate(
+    {
+      _id : req.body.blog_id,
+    },
+    {
+      $set : {
+        title : req.body.title,
+        description : req.body.description 
+      }
+    }, 
+    (err, blog) => {
+      if(err){
+        console.log('Blog.findOneAndUpdate Failed');
+        res.status(500).json({
+          msg : err
+        })
+      }
+      res.status(200).json({
+        msg : " Successfullt updated",
+        blog : blog
+      })
+    }
+  );
+}
+
 exports.logIn = (req, res, next) => {
     User.find({email : req.body.email}).exec()
     .then(user => {
@@ -31,7 +58,8 @@ exports.logIn = (req, res, next) => {
             );
             res.status(200).json({
               msg : 'LogIn SuccessFull',
-              token : token
+              token : token,
+              name : user[0].name
             })
           }
         }) 
@@ -90,7 +118,8 @@ exports.createBlog = (req, res, next) => {
     if(err){
       console.log('Server Error save fun failed');
       res.status(500).json({
-        msg : "Error occured on server side"
+        msg : "Error occured on server side",
+        err : err
       })
     }else{
       res.status(200).json({

@@ -9,8 +9,8 @@ module.exports =  (req, res, next) => {
     jwt.verify(req.body.token, 'decryptKey', (err, decoded) => {
         if(err){
             console.log('Token invalid : verify function failed');
-            res.status('500').json({
-                msg : 'Token Invalid '
+            res.status('400').json({
+                isLogedIn : false
             })
         }else{
             //next();
@@ -19,7 +19,8 @@ module.exports =  (req, res, next) => {
                 next();
             else{
                 res.status(401).json({
-                    msg : "Only admin can create a blog"
+                    isLogedIn : true,
+                    isAdmin : false
                 })
             }
         }
