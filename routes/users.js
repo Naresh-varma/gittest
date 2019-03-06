@@ -7,6 +7,7 @@ const userController = require('../controllers/user');
 const loginController = require('../controllers/login');
 const signUpController = require('../controllers/signUp');
 const blogController = require('../controllers/blog');
+const commentController = require('../controllers/comment');
 
 /* GET users listing. */
 router.post('/signUp', signUpController.signUp);
@@ -15,9 +16,9 @@ router.post('/logIn', loginController.logIn);
 
 router.post('/createBlog', checkAdmin, blogController.createBlog);
 
-router.post('/createComment', checkAuth, userController.createComment);
+router.post('/createComment', checkAuth, commentController.createComment);
 
-router.post('/editBlog', blogController.editBlog);
+router.post('/editBlog', checkAdmin, blogController.editBlog);
 
 router.get('/getAllBlogs', blogController.getAllBlogs);
 

@@ -16,7 +16,7 @@ mongoose.connect('mongodb://localhost:27017/blogPost', {useNewUrlParser : true})
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var logInRouter = require('./routes/logIn');
+
 
 var app = express();
 
@@ -36,7 +36,6 @@ app.use(function(req, res, next) {
   next();
 });
 app.use('/', indexRouter);
-app.use('/logIn', logInRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler

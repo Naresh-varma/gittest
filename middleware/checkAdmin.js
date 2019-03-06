@@ -10,6 +10,7 @@ module.exports =  (req, res, next) => {
         if(err){
             console.log('Token invalid : verify function failed');
             res.status('400').json({
+                msg : 'Invalid token',
                 isLogedIn : false
             })
         }else{

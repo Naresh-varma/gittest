@@ -21,7 +21,7 @@ exports.signUp = (req, res, next) => {
         user.save((err, result) => {
           if(err){
             console.log('failed to execute save method')
-            res.status(404).json({
+            res.status(400).json({
               err : err
             })
           }else{

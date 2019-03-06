@@ -38,13 +38,15 @@ exports.editBlog = (req, res, next) => {
             if(err){
                 console.log('Blog.findOneAndUpdate Failed');
                 res.status(500).json({
-                msg : err
+                    msg : err
+                })
+            }else{
+                res.status(200).json({
+                    msg : " Successfullt updated",
+                    blog : blog
                 })
             }
-            res.status(200).json({
-                msg : " Successfullt updated",
-                blog : blog
-            })
+            
         }
     );
 },
@@ -69,6 +71,13 @@ exports.getAllBlogs = (req, res, next) => {
 },
 exports.getBlog = (req, res, next) => {
     Blog.findOne({ _id : req.params.blogId })
+        .populate({
+            path : 'comments',
+            populate : {
+                path : 'user_id',
+                select : 'name'
+            }
+        })
         .exec((err, blog) => {
             if(err){
                 res.status(500).json({
